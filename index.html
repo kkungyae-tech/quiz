@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>다문화 공감 캠페인 퀴즈 입장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  /* 레이아웃: 여행 탑승권 창구. 학교급 두 줄, 줄마다 나라 탑승권 두 장. 큰 버튼만 눌러도 입장. */
+  :root {
+    --paper: #f2f5f1;
+    --surface: #ffffff;
+    --ink: #17262b;
+    --muted: #5a6b6f;
+    --line: #d3dcd6;
+    --vietnam: #0d7d6c;      /* 수상시장 물빛 */
+    --vietnam-soft: #dff2ec;
+    --japan: #a8392f;        /* 온천 마을 주홍 */
+    --japan-soft: #f8e4df;
+    --on-accent: #ffffff;
+    --sun: #e0a030;
+    --sky: #5b74c9;
+    --pattern-alpha: 0.11;
+    --display: "Black Han Sans", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    --body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --paper: #101a1c;
+      --surface: #19272a;
+      --ink: #eef3f0;
+      --muted: #9fb0b0;
+      --line: #2f4145;
+      --vietnam: #3fbfa6;
+      --vietnam-soft: #17393a;
+      --japan: #ee8676;
+      --japan-soft: #432724;
+      --on-accent: #101a1c;
+      --pattern-alpha: 0.16;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --paper: #101a1c;
+    --surface: #19272a;
+    --ink: #eef3f0;
+    --muted: #9fb0b0;
+    --line: #2f4145;
+    --vietnam: #3fbfa6;
+    --vietnam-soft: #17393a;
+    --japan: #ee8676;
+    --japan-soft: #432724;
+    --on-accent: #101a1c;
+      --pattern-alpha: 0.16;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; min-height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 6% 4%, color-mix(in srgb, var(--vietnam) 24%, transparent), transparent 34%),
+      radial-gradient(circle at 96% 10%, color-mix(in srgb, var(--sun) 26%, transparent), transparent 32%),
+      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--japan) 20%, transparent), transparent 36%),
+      radial-gradient(circle at 10% 92%, color-mix(in srgb, var(--sky) 22%, transparent), transparent 34%),
+      var(--paper);
+    background-attachment: fixed;
+    min-height: 100%;
+    color: var(--ink);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.55;
+    word-break: keep-all;
+  }
+  /* 배경: 여러 나라의 인사말이 겹쳐 놓인 무늬 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27680%27%20height%3D%27440%27%20viewBox%3D%270%200%20680%20440%27%3E%3Cg%20font-family%3D%27sans-serif%27%20font-weight%3D%27700%27%3E%3Ctext%20x%3D%2730%27%20y%3D%2760%27%20fill%3D%27%230d7d6c%27%20font-size%3D%2730%27%20transform%3D%27rotate%28-8%2030%2060%29%27%3E%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%3C%2Ftext%3E%3Ctext%20x%3D%27300%27%20y%3D%2750%27%20fill%3D%27%23c9841a%27%20font-size%3D%2728%27%20transform%3D%27rotate%286%20300%2050%29%27%3EXin%20ch%C3%A0o%3C%2Ftext%3E%3Ctext%20x%3D%27470%27%20y%3D%27150%27%20fill%3D%27%23a8392f%27%20font-size%3D%2728%27%20transform%3D%27rotate%28-5%20470%20150%29%27%3E%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%3C%2Ftext%3E%3Ctext%20x%3D%2760%27%20y%3D%27190%27%20fill%3D%27%234b62b8%27%20font-size%3D%2730%27%20transform%3D%27rotate%287%2060%20190%29%27%3EHello%3C%2Ftext%3E%3Ctext%20x%3D%27270%27%20y%3D%27170%27%20fill%3D%27%238a4fa3%27%20font-size%3D%2734%27%20transform%3D%27rotate%28-10%20270%20170%29%27%3E%E4%BD%A0%E5%A5%BD%3C%2Ftext%3E%3Ctext%20x%3D%27400%27%20y%3D%27290%27%20fill%3D%27%230d7d6c%27%20font-size%3D%2726%27%20transform%3D%27rotate%285%20400%20290%29%27%3EKumusta%3C%2Ftext%3E%3Ctext%20x%3D%2740%27%20y%3D%27330%27%20fill%3D%27%23a8392f%27%20font-size%3D%2730%27%20transform%3D%27rotate%28-6%2040%20330%29%27%3E%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5%3C%2Ftext%3E%3Ctext%20x%3D%27190%27%20y%3D%27400%27%20fill%3D%27%234b62b8%27%20font-size%3D%2724%27%20transform%3D%27rotate%284%20190%20400%29%27%3E%D0%A1%D0%B0%D0%B9%D0%BD%20%D0%B1%D0%B0%D0%B9%D0%BD%D0%B0%20%D1%83%D1%83%3C%2Ftext%3E%3Ctext%20x%3D%27520%27%20y%3D%27400%27%20fill%3D%27%23c9841a%27%20font-size%3D%2726%27%20transform%3D%27rotate%28-7%20520%20400%29%27%3ESalam%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    background-size: 680px 440px;
+    opacity: var(--pattern-alpha);
+  }
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 28px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  header { display: flex; flex-direction: column; gap: 8px; }
+  .host { margin: 0; color: var(--muted); font-size: 15px; }
+  h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(34px, 7vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .lead { margin: 0; font-size: clamp(18px, 2.6vw, 22px); max-width: 30em; }
+
+  .steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    counter-reset: step;
+  }
+  .steps li {
+    counter-increment: step;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 12px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--surface);
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  .step-text { min-width: 0; }
+  .steps .sub {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .steps li::before {
+    content: counter(step);
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--display);
+    font-size: 16px;
+  }
+
+  .level { display: flex; flex-direction: column; gap: 12px; }
+  .level h2 {
+    margin: 0;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.2;
+    padding-bottom: 8px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .level h2 span { font-family: var(--body); font-size: 17px; color: var(--muted); }
+  .tickets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .ticket {
+    --accent: var(--vietnam);
+    --soft: var(--vietnam-soft);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: stretch;
+    min-height: 150px;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    color: var(--ink);
+    text-decoration: none;
+    overflow: hidden;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .ticket.japan { --accent: var(--japan); --soft: var(--japan-soft); }
+  .ticket-main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 18px 16px;
+    min-width: 0;
+  }
+  .ticket-top { display: flex; align-items: center; gap: 12px; }
+  .ticket-top svg { flex: none; width: 46px; height: 46px; color: var(--accent); }
+  .country {
+    font-family: var(--display);
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.1;
+    color: var(--accent);
+  }
+  .map-name { margin: 0; color: var(--muted); font-size: 16px; }
+  .gift {
+    margin: auto 0 0;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--soft);
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .ticket-go {
+    display: grid;
+    place-items: center;
+    padding: 0 18px;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-family: var(--display);
+    font-size: 22px;
+    writing-mode: vertical-rl;
+    letter-spacing: 0.12em;
+    border-left: 2px dashed var(--surface);
+  }
+  a.ticket:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / 0.14); }
+  a.ticket:active { transform: translateY(0); box-shadow: none; }
+  a.ticket:focus-visible { outline: 4px solid var(--ink); outline-offset: 3px; }
+
+  .ticket.soon { border-style: dashed; border-color: var(--line); }
+  .ticket.soon .country,
+  .ticket.soon .ticket-top svg { color: var(--muted); }
+  .ticket.soon .gift { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+  .ticket.soon .ticket-go {
+    background: transparent;
+    color: var(--muted);
+    border-left: 2px dashed var(--line);
+  }
+
+  footer { color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); padding-top: 14px; }
+  footer p { margin: 0; }
+
+  @media (max-width: 860px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .steps { grid-template-columns: 1fr; }
+    .steps li { flex-direction: row; align-items: center; gap: 12px; padding: 10px 12px; }
+    .tickets { grid-template-columns: 1fr; }
+    .ticket { min-height: 128px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticket { transition: none; }
+    a.ticket:hover { transform: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="host">다문화교육 교원 연구 동아리 '다온'</p>
+    <h1>다문화 공감 캠페인 퀴즈</h1>
+    <p class="lead">내 학교급(초등학생, 중학생)에서 가고 싶은 나라를 하나 골라 누르세요.</p>
+  </header>
+
+  <ol class="steps" aria-label="참여 순서">
+    <li><div class="step-text">맵 선택<span class="sub">(베트남, 일본)</span></div></li>
+    <li><div class="step-text">학습 자료 읽기</div></li>
+    <li><div class="step-text"><span class="sub">1번 문항에서</span>힌트 영상 보기</div></li>
+    <li><div class="step-text">퀴즈 10문항 풀기</div></li>
+    <li><div class="step-text"><span class="sub">제한 시간 내</span>7문제 이상 맞히기</div></li>
+  </ol>
+
+  <!-- 퀴즈 링크를 바꾸려면 각 <a class="ticket"> 의 href 주소만 고치면 됩니다. -->
+
+  <section class="level" aria-labelledby="elem">
+    <h2 id="elem">초등학생 <span>4~6학년</span></h2>
+    <div class="tickets">
+
+      <a class="ticket vietnam" href="https://quiz.zep.us/play/qzPNYE" target="_blank" rel="noopener">
+        <div class="ticket-main">
+          <div class="ticket-top">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 26h36l-5 9H11z"/><path d="M24 26V8l11 13H24"/><path d="M4 42c4-3 8-3 12 0s8 3 12 0 8-3 12 0"/>
+            </svg>
+            <span class="country">베트남</span>
+          </div>
+          <p class="map-name">수상시장 맵</p>
+          <p class="gift">미션 성공 시 작은 간식 증정</p>
+        </div>
+        <div class="ticket-go">입장</div>
+      </a>
+
+      <div class="ticket japan soon" aria-disabled="true">
+        <div class="ticket-main">
+          <div class="ticket-top">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 28c0 8 7 13 16 13s16-5 16-13"/><path d="M4 28h40"/><path d="M16 20c-3-4 3-6 0-11"/><path d="M24 20c-3-4 3-6 0-11"/><path d="M32 20c-3-4 3-6 0-11"/>
+            </svg>
+            <span class="country">일본</span>
+          </div>
+          <p class="map-name">맵 준비 중</p>
+          <p class="gift">미션 성공 시 작은 간식 증정</p>
+        </div>
+        <div class="ticket-go">준비 중</div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="level" aria-labelledby="mid">
+    <h2 id="mid">중학생 <span>1~3학년</span></h2>
+    <div class="tickets">
+
+      <div class="ticket vietnam soon" aria-disabled="true">
+        <div class="ticket-main">
+          <div class="ticket-top">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 26h36l-5 9H11z"/><path d="M24 26V8l11 13H24"/><path d="M4 42c4-3 8-3 12 0s8 3 12 0 8-3 12 0"/>
+            </svg>
+            <span class="country">베트남</span>
+          </div>
+          <p class="map-name">맵 준비 중</p>
+          <p class="gift">미션 성공 시 작은 간식 증정</p>
+        </div>
+        <div class="ticket-go">준비 중</div>
+      </div>
+
+      <a class="ticket japan" href="https://quiz.zep.us/play/Rd9bXR" target="_blank" rel="noopener">
+        <div class="ticket-main">
+          <div class="ticket-top">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 28c0 8 7 13 16 13s16-5 16-13"/><path d="M4 28h40"/><path d="M16 20c-3-4 3-6 0-11"/><path d="M24 20c-3-4 3-6 0-11"/><path d="M32 20c-3-4 3-6 0-11"/>
+            </svg>
+            <span class="country">일본</span>
+          </div>
+          <p class="map-name">온천 마을 맵</p>
+          <p class="gift">미션 성공 시 작은 간식 증정</p>
+        </div>
+        <div class="ticket-go">입장</div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>퀴즈는 새 창에서 열립니다. 다 풀면 선생님께 점수 화면을 보여 주세요.</p>
+  </footer>
+
+</div>
+</body>
+</html>
