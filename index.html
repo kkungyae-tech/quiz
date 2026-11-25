@@ -22,6 +22,7 @@
     --on-accent: #ffffff;
     --sun: #e0a030;
     --sky: #5b74c9;
+    --plum: #8a4fa3;
     --pattern-alpha: 0.11;
     --display: "Black Han Sans", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
     --body: "Gowun Dodum", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
@@ -61,13 +62,7 @@
   html { -webkit-text-size-adjust: 100%; min-height: 100%; }
   body {
     margin: 0;
-    background:
-      radial-gradient(circle at 6% 4%, color-mix(in srgb, var(--vietnam) 24%, transparent), transparent 34%),
-      radial-gradient(circle at 96% 10%, color-mix(in srgb, var(--sun) 26%, transparent), transparent 32%),
-      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--japan) 20%, transparent), transparent 36%),
-      radial-gradient(circle at 10% 92%, color-mix(in srgb, var(--sky) 22%, transparent), transparent 34%),
-      var(--paper);
-    background-attachment: fixed;
+    background: var(--paper);
     min-height: 100%;
     color: var(--ink);
     font-family: var(--body);
@@ -85,6 +80,19 @@
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27680%27%20height%3D%27440%27%20viewBox%3D%270%200%20680%20440%27%3E%3Cg%20font-family%3D%27sans-serif%27%20font-weight%3D%27700%27%3E%3Ctext%20x%3D%2730%27%20y%3D%2760%27%20fill%3D%27%230d7d6c%27%20font-size%3D%2730%27%20transform%3D%27rotate%28-8%2030%2060%29%27%3E%EC%95%88%EB%85%95%ED%95%98%EC%84%B8%EC%9A%94%3C%2Ftext%3E%3Ctext%20x%3D%27300%27%20y%3D%2750%27%20fill%3D%27%23c9841a%27%20font-size%3D%2728%27%20transform%3D%27rotate%286%20300%2050%29%27%3EXin%20ch%C3%A0o%3C%2Ftext%3E%3Ctext%20x%3D%27470%27%20y%3D%27150%27%20fill%3D%27%23a8392f%27%20font-size%3D%2728%27%20transform%3D%27rotate%28-5%20470%20150%29%27%3E%E3%81%93%E3%82%93%E3%81%AB%E3%81%A1%E3%81%AF%3C%2Ftext%3E%3Ctext%20x%3D%2760%27%20y%3D%27190%27%20fill%3D%27%234b62b8%27%20font-size%3D%2730%27%20transform%3D%27rotate%287%2060%20190%29%27%3EHello%3C%2Ftext%3E%3Ctext%20x%3D%27270%27%20y%3D%27170%27%20fill%3D%27%238a4fa3%27%20font-size%3D%2734%27%20transform%3D%27rotate%28-10%20270%20170%29%27%3E%E4%BD%A0%E5%A5%BD%3C%2Ftext%3E%3Ctext%20x%3D%27400%27%20y%3D%27290%27%20fill%3D%27%230d7d6c%27%20font-size%3D%2726%27%20transform%3D%27rotate%285%20400%20290%29%27%3EKumusta%3C%2Ftext%3E%3Ctext%20x%3D%2740%27%20y%3D%27330%27%20fill%3D%27%23a8392f%27%20font-size%3D%2730%27%20transform%3D%27rotate%28-6%2040%20330%29%27%3E%E0%B8%AA%E0%B8%A7%E0%B8%B1%E0%B8%AA%E0%B8%94%E0%B8%B5%3C%2Ftext%3E%3Ctext%20x%3D%27190%27%20y%3D%27400%27%20fill%3D%27%234b62b8%27%20font-size%3D%2724%27%20transform%3D%27rotate%284%20190%20400%29%27%3E%D0%A1%D0%B0%D0%B9%D0%BD%20%D0%B1%D0%B0%D0%B9%D0%BD%D0%B0%20%D1%83%D1%83%3C%2Ftext%3E%3Ctext%20x%3D%27520%27%20y%3D%27400%27%20fill%3D%27%23c9841a%27%20font-size%3D%2726%27%20transform%3D%27rotate%28-7%20520%20400%29%27%3ESalam%3C%2Ftext%3E%3C%2Fg%3E%3C%2Fsvg%3E");
     background-size: 680px 440px;
     opacity: var(--pattern-alpha);
+  }
+  /* 배경 색 번짐: 화면에 고정된 층이라 휴대폰에서도 스크롤과 무관하게 유지 */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at 6% 4%, color-mix(in srgb, var(--vietnam) 24%, transparent), transparent 34%),
+      radial-gradient(circle at 96% 10%, color-mix(in srgb, var(--sun) 26%, transparent), transparent 32%),
+      radial-gradient(circle at 88% 78%, color-mix(in srgb, var(--japan) 20%, transparent), transparent 36%),
+      radial-gradient(circle at 10% 92%, color-mix(in srgb, var(--sky) 22%, transparent), transparent 34%);
   }
   .wrap {
     position: relative;
@@ -116,7 +124,7 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
+    gap: 16px;
     counter-reset: step;
   }
   .steps li {
@@ -125,14 +133,16 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
-    padding: 12px 10px;
+    position: relative;
+    padding: 10px 8px 12px;
     border: 1px solid var(--line);
+    border-top: 6px solid var(--step);
     border-radius: 10px;
-    background: var(--surface);
+    background: color-mix(in srgb, var(--step) 9%, var(--surface));
     font-size: 15px;
     line-height: 1.3;
   }
-  .step-text { min-width: 0; }
+  .step-text { min-width: 0; font-weight: 700; }
   .steps .sub {
     display: block;
     font-size: 13px;
@@ -146,26 +156,60 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    background: var(--ink);
-    color: var(--paper);
+    background: var(--step);
+    color: var(--step-ink);
     font-family: var(--display);
     font-size: 16px;
   }
+  /* 활동 순서: 단계마다 다른 색, 사이에는 진행 방향 화살표 */
+  .steps li:nth-child(1) { --step: var(--vietnam); --step-ink: var(--on-accent); }
+  .steps li:nth-child(2) { --step: var(--sun); --step-ink: #17262b; }
+  .steps li:nth-child(3) { --step: var(--japan); --step-ink: var(--on-accent); }
+  .steps li:nth-child(4) { --step: var(--sky); --step-ink: #ffffff; }
+  .steps li:nth-child(5) { --step: var(--plum); --step-ink: #ffffff; }
+  .steps li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -14px;
+    transform: translateY(-50%);
+    border-left: 9px solid var(--muted);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+  }
 
-  .level { display: flex; flex-direction: column; gap: 12px; }
+  /* 학교급 구분: 초등은 노랑, 중등은 파랑 테두리 상자와 이름표 */
+  .level {
+    --level: var(--sun);
+    --level-ink: #17262b;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+    border: 3px solid var(--level);
+    border-radius: 20px;
+    background: color-mix(in srgb, var(--level) 12%, var(--surface));
+  }
+  .level.mid { --level: var(--sky); --level-ink: #ffffff; }
   .level h2 {
     margin: 0;
     display: flex;
-    align-items: baseline;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 10px;
     font-family: var(--display);
     font-weight: 400;
     font-size: clamp(24px, 4vw, 32px);
     line-height: 1.2;
-    padding-bottom: 8px;
-    border-bottom: 3px solid var(--ink);
   }
-  .level h2 span { font-family: var(--body); font-size: 17px; color: var(--muted); }
+  .level-tag {
+    font-weight: 400;
+    padding: 4px 18px 5px;
+    border-radius: 999px;
+    background: var(--level);
+    color: var(--level-ink);
+  }
+  .level h2 span { font-family: var(--body); font-size: 18px; color: var(--ink); }
   .tickets { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
   .ticket {
@@ -235,16 +279,40 @@
     border-left: 2px dashed var(--line);
   }
 
-  footer { color: var(--muted); font-size: 15px; border-top: 1px solid var(--line); padding-top: 14px; }
+  /* 마무리 안내: 어두운 띠에 큰 글씨로 눈에 띄게 */
+  footer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    border-radius: 16px;
+    border-left: 10px solid var(--sun);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  footer svg { flex: none; width: 44px; height: 44px; color: var(--sun); }
   footer p { margin: 0; }
+  .notice-sub { font-size: 17px; font-weight: 700; opacity: 0.85; }
+  .notice-main {
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: clamp(21px, 3.4vw, 28px);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+  .notice-main mark { background: none; color: var(--sun); }
 
   @media (max-width: 860px) {
     .steps { grid-template-columns: repeat(3, 1fr); }
+    .steps li:not(:last-child)::after { display: none; }
   }
   @media (max-width: 560px) {
     .steps { grid-template-columns: 1fr; }
     .steps li { flex-direction: row; align-items: center; gap: 12px; padding: 10px 12px; }
     .tickets { grid-template-columns: 1fr; }
+    .level { padding: 12px; }
+    footer { padding: 14px 16px; gap: 12px; }
+    footer svg { width: 34px; height: 34px; }
     .ticket { min-height: 128px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -272,8 +340,8 @@
 
   <!-- 퀴즈 링크를 바꾸려면 각 <a class="ticket"> 의 href 주소만 고치면 됩니다. -->
 
-  <section class="level" aria-labelledby="elem">
-    <h2 id="elem">초등학생 <span>4~6학년</span></h2>
+  <section class="level elem" aria-labelledby="elem">
+    <h2 id="elem"><b class="level-tag">초등학생</b> <span>4~6학년</span></h2>
     <div class="tickets">
 
       <a class="ticket vietnam" href="https://quiz.zep.us/play/qzPNYE" target="_blank" rel="noopener">
@@ -290,7 +358,7 @@
         <div class="ticket-go">입장</div>
       </a>
 
-      <div class="ticket japan soon" aria-disabled="true">
+      <a class="ticket japan" href="https://quiz.zep.us/play/k4WxZQ" target="_blank" rel="noopener">
         <div class="ticket-main">
           <div class="ticket-top">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -298,20 +366,20 @@
             </svg>
             <span class="country">일본</span>
           </div>
-          <p class="map-name">맵 준비 중</p>
+          <p class="map-name">온천 마을 맵</p>
           <p class="gift">미션 성공 시 작은 간식 증정</p>
         </div>
-        <div class="ticket-go">준비 중</div>
-      </div>
+        <div class="ticket-go">입장</div>
+      </a>
 
     </div>
   </section>
 
-  <section class="level" aria-labelledby="mid">
-    <h2 id="mid">중학생 <span>1~3학년</span></h2>
+  <section class="level mid" aria-labelledby="mid">
+    <h2 id="mid"><b class="level-tag">중학생</b> <span>1~3학년</span></h2>
     <div class="tickets">
 
-      <div class="ticket vietnam soon" aria-disabled="true">
+      <a class="ticket vietnam" href="https://quiz.zep.us/play/BzkZRk" target="_blank" rel="noopener">
         <div class="ticket-main">
           <div class="ticket-top">
             <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -319,11 +387,11 @@
             </svg>
             <span class="country">베트남</span>
           </div>
-          <p class="map-name">맵 준비 중</p>
+          <p class="map-name">수상시장 맵</p>
           <p class="gift">미션 성공 시 작은 간식 증정</p>
         </div>
-        <div class="ticket-go">준비 중</div>
-      </div>
+        <div class="ticket-go">입장</div>
+      </a>
 
       <a class="ticket japan" href="https://quiz.zep.us/play/Rd9bXR" target="_blank" rel="noopener">
         <div class="ticket-main">
@@ -343,7 +411,13 @@
   </section>
 
   <footer>
-    <p>퀴즈는 새 창에서 열립니다. 다 풀면 선생님께 점수 화면을 보여 주세요.</p>
+    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M24 6a12 12 0 0 0-12 12v8l-4 8h32l-4-8v-8A12 12 0 0 0 24 6z"/><path d="M19 40a5 5 0 0 0 10 0"/>
+    </svg>
+    <div>
+      <p class="notice-sub">퀴즈는 새 창에서 열립니다.</p>
+      <p class="notice-main">다 풀면 선생님께 <mark>점수 화면</mark>을 보여 주세요.</p>
+    </div>
   </footer>
 
 </div>
